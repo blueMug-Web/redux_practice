@@ -6,14 +6,22 @@ import reportWebVitals from "./reportWebVitals";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
 import { fetchUsers } from "./features/users/usersSlice";
+import { fetchPosts } from "./features/posts/postsSlice";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+// This will fetch the posts as soon as the page loads
+store.dispatch(fetchPosts());
 // This will fetch the users (authors of the posts) as soon as the page loads
 store.dispatch(fetchUsers());
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	<Provider store={store}>
-		<App />
+		<Router>
+			<Routes>
+				<Route path="/*" element={<App />} />
+			</Routes>
+		</Router>
 	</Provider>
 );
 
